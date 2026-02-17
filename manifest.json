@@ -1,0 +1,16 @@
+{
+  "name": "ProductAI V8 Elite",
+  "short_name": "ProductAI",
+  "description": "AI Bulk Marketplace Description Generator",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#ec4899",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/9752/9752284.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
