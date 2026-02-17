@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ScriptLaku V8.0 ELITE - Deskripsi Produk</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/9752/9752284.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #09090b; color: #fafafa; -webkit-tap-highlight-color: transparent; }
+        .glass-nav { background: rgba(9, 9, 11, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .elite-card { background: #18181b; border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; }
+        .input-elite { background: #27272a; border: 1px solid #3f3f46; border-radius: 14px; padding: 14px; width: 100%; color: white; outline: none; transition: 0.3s; font-size: 15px; }
+        .input-elite:focus { border-color: #ec4899; background: #2d2d30; }
+        .btn-elite { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); transition: 0.2s; box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.4); }
+        .btn-elite:active { transform: scale(0.96); opacity: 0.9; }
+        .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, #09090b 85%, transparent); z-index: 50; }
+        [x-cloak] { display: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body x-data="productApp()" x-cloak>
+
+    <nav class="sticky top-0 z-[60] glass-nav py-4 px-6 flex justify-between items-center">
+        <div class="flex flex-col">
+            <span class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">ScriptLaku</span>
+            <span class="text-[9px] font-bold text-gray-500 tracking-[0.2em] uppercase">V8.0 Elite - Marketplace Edition</span>
+        </div>
+        <button @click="openSet = true" class="p-2.5 rounded-2xl bg-white/5 border border-white/10 text-lg">⚙️</button>
+    </nav>
+
+    <main class="p-5 max-w-xl mx-auto pb-48">
+        
+        <p class="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em] mb-4 text-center">Edit Produk Slot (1-5)</p>
+        
+        <div class="flex justify-between gap-3 mb-8 overflow-x-auto pb-2 no-scrollbar">
+            <template x-for="i in 5">
+                <button @click="activeSlot = i-1" 
+                    :class="activeSlot === i-1 ? 'btn-elite border-transparent text-white scale-110' : 'bg-zinc-800 text-gray-500'"
+                    class="w-14 h-14 rounded-2xl font-black text-lg flex-shrink-0 shadow-xl flex items-center justify-center transition-all duration-300" x-text="i"></button>
+            </template>
+        </div>
+
+        <div class="elite-card p-7 relative overflow-hidden shadow-2xl">
+            <div class="absolute -top-6 -right-4 text-[120px] font-black text-white/[0.02]" x-text="activeSlot + 1"></div>
+            
+            <div class="space-y-6 relative z-10">
+                <div>
+                    <label class="text-[10px] font-bold text-pink-500/80 uppercase tracking-widest mb-2 block">Kategori Produk</label>
+                    <select x-model="items[activeSlot].cat" class="input-elite font-bold">
+                        <option>👗 Fashion</option>
+                        <option>📱 Elektronik</option>
+                        <option>🍔 Makanan & Minuman</option>
+                        <option>💄 Kecantikan</option>
+                        <option>🏠 Rumah Tangga</option>
+                        <option>⚽ Olahraga</option>
+                        <option>🧸 Mainan & Hobi</option>
+                        <option>🎁 Lainnya</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Nama Produk</label>
+                    <input type="text" x-model="items[activeSlot].name" placeholder="Contoh: Sepatu Sneakers Premium" class="input-elite font-semibold">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Detail/Keunggulan Produk</label>
+                    <textarea x-model="items[activeSlot].detail" placeholder="Jelaskan bahan, ukuran, warna, atau fitur unggulan..." class="input-elite h-32 resize-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Bahasa</label>
+                        <select x-model="items[activeSlot].lang" class="input-elite">
+                            <option>🇮🇩 Indonesia</option>
+                            <option>🇺🇸 English</option>
+                            <option>🌐 Keduanya</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Gaya Bahasa</label>
+                        <select x-model="items[activeSlot].style" class="input-elite">
+                            <option>💬 Casual</option>
+                            <option>👔 Formal</option>
+                            <option>🎯 Persuasive</option>
+                            <option>💎 Luxury</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 space-y-8" id="results">
+            <template x-for="(res, idx) in results" :key="idx">
+                <div class="elite-card p-6 border-l-[6px] border-l-pink-600 shadow-2xl bg-[#111113]">
+                    <div class="flex justify-between items-center mb-5">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-pink-500 flex items-center justify-center text-[10px] font-black text-white">#<span x-text="idx+1"></span></span>
+                            <span class="text-[10px] font-black text-gray-400 tracking-widest uppercase" x-text="'Result Slot ' + (idx + 1)"></span>
+                        </div>
+                        <button @click="copy(res)" class="px-5 py-2 btn-elite text-white text-[10px] font-black rounded-xl uppercase">Salin</button>
+                    </div>
+                    <div class="text-[14px] leading-relaxed opacity-90 font-medium whitespace-pre-wrap" x-html="res"></div>
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <div class="sticky-bottom">
+        <button @click="generateAll()" :disabled="loading" class="w-full btn-elite py-5 rounded-[22px] text-white font-black text-lg shadow-2xl flex justify-center items-center gap-4">
+            <template x-if="!loading">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">✨</span>
+                    <span>GENERATE 5 DESKRIPSI</span>
+                </div>
+            </template>
+            <template x-if="loading">
+                <div class="flex items-center gap-3">
+                    <div class="w-6 h-6 border-3 border-white/20 border-t-white rounded-full animate-spin"></div>
+                    <span class="tracking-widest uppercase text-sm">Sedang Menulis...</span>
+                </div>
+            </template>
+        </button>
+    </div>
+
+    <div x-show="openSet" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl">
+        <div class="elite-card w-full max-w-sm p-10 text-center bg-zinc-900 border border-white/10 shadow-3xl">
+            <div class="w-20 h-20 bg-pink-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-pink-500/20">
+                <span class="text-4xl text-pink-500">🔑</span>
+            </div>
+            <h3 class="text-2xl font-black mb-2 uppercase italic">Groq API Key</h3>
+            <p class="text-[10px] text-gray-500 mb-8 uppercase tracking-widest">Masukkan API Key untuk memulai</p>
+            <input type="password" x-model="apiKey" placeholder="gsk_xxxx..." class="input-elite text-center mb-6 tracking-widest font-mono border-pink-500/30">
+            <button @click="saveSet()" class="w-full btn-elite py-4 rounded-2xl text-white font-black uppercase text-xs tracking-widest">Simpan Konfigurasi</button>
+        </div>
+    </div>
+
+    <script>
+        function productApp() {
+            return {
+                activeSlot: 0, loading: false, openSet: false,
+                apiKey: localStorage.getItem('_secure_key_product') || '',
+                items: Array.from({length: 5}, () => ({
+                    cat: '👗 Fashion', name: '', detail: '', lang: '🇮🇩 Indonesia', style: '💬 Casual'
+                })),
+                results: [],
+                saveSet() { 
+                    localStorage.setItem('_secure_key_product', this.apiKey); 
+                    this.openSet = false; 
+                },
+                async generateAll() {
+                    if(!this.apiKey) return this.openSet = true;
+                    const valid = this.items.filter(i => i.name.trim() !== '');
+                    if(valid.length === 0) return alert('Isi minimal satu nama produk!');
+                    
+                    this.loading = true; this.results = [];
+                    try {
+                        const tasks = valid.map(i => this.callAI(i));
+                        this.results = await Promise.all(tasks);
+                        setTimeout(() => document.getElementById('results').scrollIntoView({behavior:'smooth'}), 300);
+                    } catch (e) { 
+                        alert('Error! Cek API Key lo.'); 
+                    } finally { 
+                        this.loading = false; 
+                    }
+                },
+                async callAI(p) {
+                    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            model: "llama-3.3-70b-versatile",
+                            messages: [{ role: "user", content: `Buatkan deskripsi produk marketplace yang menjual dan persuasif. Kategori: ${p.cat}, Nama: ${p.name}, Detail: ${p.detail}, Bahasa: ${p.lang}, Gaya: ${p.style}. Berikan format yang rapi dengan bullet points untuk keunggulan.` }]
+                        })
+                    });
+                    const d = await r.json();
+                    return d.choices[0].message.content.replace(/\n/g, '<br>');
+                },
+                copy(t) { 
+                    navigator.clipboard.writeText(t.replace(/<br>/g, '\n')); 
+                    alert('Berhasil disalin ke clipboard!'); 
+                }
+            }
+        }
+    </script>
+</body>
+</html>
